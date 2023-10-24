@@ -24,6 +24,7 @@ Node* buildTree(){
     root->left = buildTree();
     cout<<"Enter the rightNode of"<<data<<": ";
     root->right = buildTree();
+    return root;
 }
 int main(){
     Node* root = buildTree();
