@@ -41,8 +41,13 @@ vector<int> v;
         v.push_back(root->data);
     }
     vector <int> boundary(Node *root)
-    {
+    {if(root==NULL){
+            return {};
+        }
         v.push_back(root->data);
+        if(root->left==NULL && root->right==NULL){
+            return v;
+        }
         printLeftBoundary(root->left);
         printLeafNode(root);
         printRightBoundary(root->right);
