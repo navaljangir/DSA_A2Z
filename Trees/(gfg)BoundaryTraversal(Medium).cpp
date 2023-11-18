@@ -12,7 +12,7 @@ vector<int> v;
         if(root->left){
             printLeftBoundary(root->left);
         }else{
-            printRightBoundary(root->right);
+            printLeftBoundary(root->right);
         }
     }
     void printLeafNode(Node* root){
