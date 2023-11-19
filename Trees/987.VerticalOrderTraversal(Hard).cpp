@@ -34,3 +34,37 @@ public:
         return ans;
     }
 };
+
+//Iterative // Using Queue
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        queue<pair<TreeNode*,pair<int,int>>> q;
+        map<int,map<int,multiset<int>>> mp;
+        q.push({root , {0,0}});
+        while(!q.empty()){
+            auto &p = q.front();
+            TreeNode*&temp = p.first;
+            int&row = p.second.first;
+            int&col = p.second.second;
+            mp[col][row].insert(temp->val);
+            if(temp->left){
+                q.push({temp->left , {row+1 , col-1}});
+            }
+            if(temp->right){
+                q.push({temp->right, {row+1 , col+1}});
+            }
+            q.pop();
+        }
+        vector<vector<int>> ans;
+        for(auto col: mp){
+            vector<int> v;
+           for(auto&row : col.second){
+               auto&mset = row.second;
+               v.insert(v.end() , mset.begin() , mset.end());
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }
+};
