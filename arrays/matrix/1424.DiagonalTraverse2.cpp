@@ -36,4 +36,23 @@ public:
 };
 
 
-//Optimised
+//Optimised 
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+        vector<int> ans;
+        map<int,vector<pair<int,int>>> mp;
+        for(int i = 0; i<nums.size();i++){
+            for(int j =0;j< nums[i].size();j++){
+                mp[i+j].push_back({i,j});
+            }
+        }
+        for(auto i : mp){
+            vector<pair<int,int>> v = i.second;
+            for(int j = v.size()-1;j>=0;j--){
+                ans.push_back(nums[v[j].first][v[j].second]);
+            }
+        }
+        return ans;
+    }
+};
