@@ -21,3 +21,26 @@ public:
         return ans;
     }
 };
+
+
+//Return when found O(1) Space 
+class Solution {
+public:
+    int solve(TreeNode* root , int&k){
+        if(root==NULL){
+            return -1;
+        }
+        int ans =solve(root->left , k);
+        if(ans!=-1){
+            return ans;
+        }
+        k--;
+        if(k==0){
+            return root->val;
+        }
+        return solve(root->right , k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        return solve(root , k );
+    }
+};
