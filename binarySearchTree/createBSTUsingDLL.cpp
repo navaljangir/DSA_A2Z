@@ -65,7 +65,7 @@ Node* createBSTUsingDLL(Node* &head , int n){
     Node* leftSubTree = createBSTUsingDLL(head , n-n/2-1);
     Node* root = head;
     root->left = leftSubTree;
-    head = head->right;
+    head = head->right;   //Yha pr glti kroge 
     root->right = createBSTUsingDLL(head , n/2);
     return root;
 }
