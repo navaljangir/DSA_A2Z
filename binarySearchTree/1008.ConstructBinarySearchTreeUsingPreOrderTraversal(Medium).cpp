@@ -1,5 +1,5 @@
 //Space - O(N)
-//Time Complexity : O(N^2)
+//Time Complexity : O(nlogn)
 class Solution {
 public:
     int findPosi(vector<int>& inorder , int element){
@@ -29,7 +29,7 @@ public:
 };
 
 //S.C - O(1) 
-//T.C - O(nlogn)
+//T.C - O(nlogn) ,, worst Case - O(N^2)
 class Solution {
 public:
     TreeNode* buildTree(TreeNode* root , int num){
@@ -50,5 +50,27 @@ public:
             root= buildTree(root , i);
         }
         return root;
+    }
+};
+
+//T.C - O(n)
+class Solution {
+public: 
+    TreeNode* solve(vector<int>& preorder , int &index , int minVal , int maxVal){
+        if(index>=preorder.size()){
+            return NULL;
+        }
+        if(preorder[index]>maxVal && preorder[index]>minVal){
+            return NULL;
+        }
+
+        TreeNode* root = new TreeNode(preorder[index++]);
+        root->left = solve(preorder , index , minVal , root->val);
+        root->right = solve(preorder , index , root->val , maxVal);
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        int index =0 ;
+        return solve(preorder , index , INT_MIN , INT_MAX);
     }
 };
