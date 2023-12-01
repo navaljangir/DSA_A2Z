@@ -1,3 +1,5 @@
+//Space - O(N)
+//Time Complexity : O(N^2)
 class Solution {
 public:
     int findPosi(vector<int>& inorder , int element){
@@ -23,5 +25,30 @@ public:
         sort(inorder.begin() , inorder.end()); 
         int index =0;
         return solve(preorder, 0,index , preorder.size()-1 , inorder);
+    }
+};
+
+//S.C - O(1) 
+//T.C - O(nlogn)
+class Solution {
+public:
+    TreeNode* buildTree(TreeNode* root , int num){
+        if(root==NULL){
+            TreeNode* newNode = new TreeNode(num);
+            return newNode;
+        }
+        if(num>root->val){
+          root->right =   buildTree(root->right , num);
+        }else{
+            root->left = buildTree(root->left , num);
+        }
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        TreeNode* root = NULL;
+        for(auto i : preorder){
+            root= buildTree(root , i);
+        }
+        return root;
     }
 };
