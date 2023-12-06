@@ -55,3 +55,80 @@ public:
         return str;
     }
 };
+
+
+//Solution 2
+class node{
+    public:
+    char data;
+    int count;
+    node(char ch,  int c){
+        count= c;
+        data =ch;
+    }
+};
+class compare{
+    public: 
+    bool operator()(node a , node b){
+        return a.count<b.count;
+    }
+};
+class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        priority_queue<node,vector<node> , compare> pq;
+        if(a!=0) {
+            node temp('a' , a);
+            pq.push(temp);
+        }
+        if(b!=0){
+            node temp('b' , b);
+            pq.push(temp);
+        }
+        if(c!=0){
+            node temp('c' , c);
+            pq.push(temp);
+        }
+        string str="";
+        while(pq.size()>=2){
+            auto p = pq.top();
+            pq.pop();
+            auto p1= pq.top();
+            pq.pop();
+            if(p.count>=2){
+                str+=p.data;
+                str+=p.data;
+                p.count-=2;
+            }else{
+                str+=p.data;
+                p.count-=1;
+            }
+            if(p1.count>=2 && p1.count>=p.count){
+                str+=p1.data;
+                str+=p1.data;
+                p1.count-=2;
+             }else{
+                 str+=p1.data;
+                p1.count-=1;
+             }
+            
+            if(p.count>0){
+                pq.push(p);
+            }
+            if(p1.count>0){
+                pq.push(p1);
+            }
+        }
+        if(!pq.empty()){
+             auto p = pq.top();
+             pq.pop();
+             if(p.count>=2){
+                 str+=p.data;
+                 str+=p.data;
+             }else{
+                 str+=p.data;
+             }
+        }
+        return str;
+    }
+};
