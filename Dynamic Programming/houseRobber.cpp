@@ -65,3 +65,27 @@ public:
         return solvemem(nums , 0, dp);
     }
 };
+
+
+//Tabulation 
+class Solution {
+public:
+    int solveTab(vector<int>&nums){
+        vector<int> dp(nums.size()+1 , 0);
+        int n = nums.size()-1;
+        dp[n] = nums[n];
+        for(int i = n-1; i>=0; i--){
+            int inc = nums[i];
+            if(i+2<=n)
+                inc = inc+ dp[i+2];
+
+            int exc = dp[i+1];
+            dp[i] = max(inc , exc);
+        }
+        return dp[0];
+    }
+    int rob(vector<int>& nums) {
+        vector<int> dp(nums.size(),-1);
+        return solveTab(nums );
+    }
+};
