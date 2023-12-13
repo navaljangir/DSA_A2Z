@@ -8,7 +8,7 @@ public:
         int take = 0 ;
         int notTake = 0; 
         if(prev==-1 || prev!=i-1){
-            take = nums[i] + solvemem(nums , i+1 ,i); 
+            take = nums[i] + solvemem(nums , i+2,i); 
         }
         notTake = solvemem(nums , i+1 , prev);
         return  max(take , notTake);
@@ -32,7 +32,7 @@ public:
         int take = 0 ;
         int notTake = 0; 
         if(prev==-1 || prev!=i-1){
-            take = nums[i] + solvemem(nums , i+1 ,i,dp); 
+            take = nums[i] + solvemem(nums , i+2 ,i,dp); 
         }
         notTake = solvemem(nums , i+1 , prev,dp);
         return dp[i][prev+1] = max(take , notTake);
