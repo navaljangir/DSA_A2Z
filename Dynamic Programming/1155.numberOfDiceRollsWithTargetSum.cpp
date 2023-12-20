@@ -80,3 +80,29 @@ int mod = 1e9+7;
         return totalRolls(n , k , target);
     }
 };
+
+//Space optimised
+class Solution {
+public:
+int mod = 1e9+7;
+    int totalRolls(int n , int k , int target){
+        vector<int> prev(target+1);
+        vector<int> curr(target+1);
+        prev[0] = 1;
+        for(int i =1;i<=n;i++){
+            for(int t= 1; t<=target;t++){
+                int ans = 0 ;
+            for(int j = 1;  j<=k;j++){
+                if(t>=j)
+                ans = (ans + prev[t-j])%mod;
+            }
+            curr[t]= ans;
+            }
+            prev = curr;
+        }
+        return prev[target];
+    }
+    int numRollsToTarget(int n, int k, int target) {
+        return totalRolls(n , k , target);
+    }
+};
