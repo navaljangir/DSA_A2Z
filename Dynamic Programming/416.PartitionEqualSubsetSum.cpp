@@ -101,3 +101,35 @@ bool canBeEqualSubsetSO(vector<int>& nums, int&target){
         return canBeEqualSubsetSO(nums, totalSum);
     }
 };
+
+
+//More space optitmised - O(target+1)
+class Solution {
+public:
+bool canBeEqualSubsetSO(vector<int>& nums, int&target){
+   vector<int> curr(target+1);
+    curr[0] =1;
+    for(int i = 0;i<nums.size();i++){
+        for(int t = target; t>=1;t--){
+            bool include = false;
+            if(t-nums[i]>=0){
+                include = curr[t-nums[i]];
+            }
+            bool exclude = curr[t];
+            curr[t] = include || exclude ;
+        }
+    }
+    return curr[target];
+}
+    bool canPartition(vector<int>& nums) {
+        int totalSum =0;
+       for(int i =0 ; i <nums.size();i++){
+           totalSum+=nums[i];
+       } 
+       if(totalSum%2!=0){
+           return false;
+       }
+       totalSum = totalSum/2;
+        return canBeEqualSubsetSO(nums, totalSum);
+    }
+};
