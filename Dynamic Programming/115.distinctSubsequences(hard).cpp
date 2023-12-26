@@ -23,3 +23,30 @@ public:
         return solve(0 , 0 , s, t ,dp);
     }
 };
+
+
+//Tabulation Method
+class Solution {
+public:
+    int mod = 1e9+7;
+    int distinctSubsequences(string s, string t){
+        vector<vector<long long>> dp(s.length()+1, vector<long long>(t.length()+1 , 0));
+        for(int i =0 ; i<dp.size(); i++){
+            dp[i][t.length()] = 1;
+        }
+        for(int i = s.length()-1; i>=0;i--){
+            for(int j = t.length()-1;j>=0;j--){
+                long long include =0 ; 
+                if(s[i]==t[j]){
+                include = dp[i+1][j+1];
+                }
+                long long exclude = dp[i+1][j];
+                dp[i][j] = (include + exclude)%mod;
+            }
+        }
+        return dp[0][0];
+    }
+    int numDistinct(string s, string t) {
+        return distinctSubsequences(s,t);
+    }
+};
