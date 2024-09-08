@@ -46,4 +46,25 @@ class Solution {
         return solveTab(height);
     }
 };
+
+//space optimized
+ class Solution {
+  public:
+    int solveTab(vector<int>&height) {
+        int n = height.size();
+        int next1= 0 ;
+        int next2 =0 ;
+        for(int i= n-2 ; i>=0; i--){
+           int curr = abs(height[i] - height[i+1]) + next1;
+            if(i+2<n){
+               curr= min(curr , abs(height[i] - height[i+2]) + next2);
+            }
+            next2 = next1; 
+            next1  = curr;
+        }
+        return next1;
+    }
+    int minimumEnergy(vector<int>& height, int n) {
+        return solveTab(height);
+    }
 };
