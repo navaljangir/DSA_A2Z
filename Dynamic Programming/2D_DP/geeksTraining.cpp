@@ -62,22 +62,22 @@ class Solution {
     int spaceOpti(vector<vector<int>>&arr){
         int n = arr.size();
         int m = arr[0].size();
-        vector<vector<int>> dp(n+1 , vector<int>(m , -1));
-        for(int j =0 ; j < m ; j++){
-            dp[n][j] = 0;
-        }
+        // vector<int> curr(m , -1);
+        vector<int> next(m , 0);
         for(int i = n-1; i>=0;i--){
+            vector<int> curr(m+1 , -1);
             for(int j = 0 ; j < m;j++){
                 for(int k = 0 ; k < m ; k++){
                     if(j!=k){
-                        dp[i][j] = max({dp[i][j] ,arr[i][k] + dp[i+1][k]});
+                        curr[j] = max({curr[j] ,arr[i][k] + next[k]});
                     }
                 }
             }    
+            next =curr; 
         }
         int ans = INT_MIN;
         for(int i =0; i < m;i++){
-            ans = max(ans , dp[0][i]);
+            ans = max(ans ,next[i]);
         }
         return ans;
     }
