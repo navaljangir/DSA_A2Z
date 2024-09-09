@@ -53,3 +53,37 @@ public:
         return solveTab(obstacleGrid);
     }
 };
+
+//space optimized
+class Solution {
+public:
+    int spaceOpti(vector<vector<int>>& obstacleGrid){
+        int n = obstacleGrid.size();
+        int m= obstacleGrid[0].size();
+        vector<long long> next(m , 0);
+        next[m-1] = 1;
+        for(int i = n-1; i >=0;i--){
+            int nextVal = 0;
+            for(int j = m-1;j>=0;j--){
+                if(i==n-1 && j==m-1){
+                    nextVal = 1;
+                }else if(obstacleGrid[i][j]==0){
+                    next[j] = next[j] + nextVal;
+                    nextVal = next[j];
+                }else if(obstacleGrid[i][j]==1){
+                    nextVal = 0;
+                    next[j] =0 ;
+                }
+            }
+        }
+        return next[0];
+    }
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int n = obstacleGrid.size();
+        int m = obstacleGrid[0].size();
+        if(obstacleGrid[n-1][m-1]==1){
+            return 0;
+        }
+        return spaceOpti(obstacleGrid);
+    }
+};
