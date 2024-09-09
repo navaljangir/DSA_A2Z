@@ -52,15 +52,16 @@ public:
         vector<int> next(m+1, 0);
         next[m-1] = 1;
         for(int i = n-1; i>=0;i--){
-            vector<int> curr(m+1 ,0);
+           int nextVal = 0;
             for(int j = m-1; j>=0;j--){
                 if(i==n-1 && j == m-1){
-                    curr[j] = 1;
+                    nextVal = 1;
                 }else{
-                    curr[j] = next[j] + curr[j+1];
+                    next[j] = next[j] + nextVal;
+                    nextVal = next[j];
                 }
             }
-            next = curr;
+    
         }
         return next[0];
     }
