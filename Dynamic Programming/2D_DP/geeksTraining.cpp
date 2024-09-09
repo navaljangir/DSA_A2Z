@@ -55,3 +55,33 @@ class Solution {
         return solveTab(arr);
     }
 };
+
+//Space optimized
+class Solution {
+  public:
+    int spaceOpti(vector<vector<int>>&arr){
+        int n = arr.size();
+        int m = arr[0].size();
+        vector<vector<int>> dp(n+1 , vector<int>(m , -1));
+        for(int j =0 ; j < m ; j++){
+            dp[n][j] = 0;
+        }
+        for(int i = n-1; i>=0;i--){
+            for(int j = 0 ; j < m;j++){
+                for(int k = 0 ; k < m ; k++){
+                    if(j!=k){
+                        dp[i][j] = max({dp[i][j] ,arr[i][k] + dp[i+1][k]});
+                    }
+                }
+            }    
+        }
+        int ans = INT_MIN;
+        for(int i =0; i < m;i++){
+            ans = max(ans , dp[0][i]);
+        }
+        return ans;
+    }
+    int maximumPoints(vector<vector<int>>& arr, int n) {
+        return spaceOpti(arr);
+    }
+};
