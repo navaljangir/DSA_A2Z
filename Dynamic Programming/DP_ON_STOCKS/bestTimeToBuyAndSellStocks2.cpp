@@ -1,28 +1,29 @@
 //Question Link : 
 
-//DP approach :=> TLE
+//DP Memoization
 
 class Solution {
 public:
-    int solve(vector<int>&prices, int i , int prev , vector<vector<int>> & dp){
+    int solve(vector<int>&prices, int i ,int buy, vector<vector<int>> & dp){
         if(i>=prices.size()){
             return 0;
         }
-        if(dp[i][prev+1]!=-1){
-            return dp[i][prev+1];
+        if(dp[i][buy]!=-1){
+            return dp[i][buy];
         }
         int ans1=0; 
-        if(prev==-1){
-            ans1 = solve(prices , i+1 , i , dp);
-        }else if(prices[i] >= prices[prev]){
-            ans1 = prices[i] - prices[prev] + solve(prices, i+1 , -1 ,dp);
+        if(buy==0){
+            ans1 = -prices[i] + solve(prices , i + 1 , 1 , dp);
         }
-        int ans2 = solve(prices , i+1 , prev, dp);
-        return dp[i][prev+1] = max(ans1 , ans2);
+        if(buy==1){
+            ans1 = prices[i]+ solve(prices , i+1 , 0 , dp);
+        }
+        int ans2 = solve(prices , i+1 , buy, dp);
+        return dp[i][buy] = max(ans1 , ans2);
     }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>> dp(prices.size() , vector<int>(prices.size()+1, -1));
-        return solve(prices ,0 , -1 ,dp);
+        vector<vector<int>> dp(prices.size() , vector<int>(2 , -1));
+        return solve(prices ,0 , 0,dp);
     }
 };
 
