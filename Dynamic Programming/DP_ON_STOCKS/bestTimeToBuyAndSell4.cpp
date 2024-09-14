@@ -36,7 +36,7 @@ public:
     int solveTab(vector<int>&prices ,int k){
         int n = prices.size();
         vector<vector<vector<int>>> dp(prices.size()+1, vector<vector<int>>(k+2, vector<int>(2, -1e9)));
-        for(int i =0 ; i <=k+1;i++)2
+        for(int i =0 ; i <=k+1;i++){
             for(int j= 0;j<2;j++){
                 dp[n][i][j] = 0;
             }
