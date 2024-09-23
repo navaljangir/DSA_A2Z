@@ -26,3 +26,29 @@ public:
 };
 
 // Tabulation 
+class Solution{
+public:
+    int solveTab(int arr[] , int N){
+        vector<vector<long long>> dp(N+2, vector<long long>(N+2 , 1e9));
+        for(int i = 0;i<=N;i++){
+            dp[i][i] = 0; 
+        }
+        for(int i=N-1;i>=1;i--){
+            for(int j = 1;j<=N-1;j++){
+                long long ans = 1e9;
+                for(int k = i; k<j;k++){
+                    ans = min(ans , arr[i-1] * arr[k] * arr[j] + dp[i][k] + dp[k+1][j]);
+                }
+                if(i!=j){
+                    dp[i][j] = ans;
+                }
+            }
+            
+        }
+        return dp[1][N-1];
+    }
+    int matrixMultiplication(int N, int arr[])
+    {
+        return solveTab(arr ,N); 
+    }
+};
