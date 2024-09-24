@@ -55,3 +55,35 @@ public:
 
 // Tabulation 
 
+class Solution {
+public:
+    int solveTab(int stickSize , vector<int>&cuts){
+        int n = cuts.size();
+        vector<vector<int>> dp(n+1 , vector<int>(n+1, 1e9));
+        for(int i =0 ; i <=n;i++){
+            for(int j = 0 ; j <=n;j++){
+                if(j-i<=1){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        for(int i = n-1;i>=0;i--){
+            for(int j= 0;j<n;j++){
+                int ans = 1e9;
+                for(int k = i+1;k<j;k++){
+                    int leftAns = dp[i][k];
+                    int rightAns = dp[k][j];
+                    ans =min(ans , cuts[j] - cuts[i] + leftAns + rightAns);
+                    dp[i][j] = min(dp[i][j] , ans);
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+    int minCost(int n, vector<int>& cuts) {
+        cuts.push_back(0);
+        cuts.push_back(n);
+        sort(cuts.begin() , cuts.end());
+        return solveTab( n , cuts) ;
+    }
+};
